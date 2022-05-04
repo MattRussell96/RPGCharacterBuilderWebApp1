@@ -17,5 +17,8 @@ namespace RPGCharacterBuilderWebApp1.Server.Data
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
+
+        public DbSet<Character> Characters { get; set; }
+        public DbSet<Armor> Armors { get; set; }
     }
 }
