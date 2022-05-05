@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RPGCharacterBuilderWebApp1.Server.Data;
 using RPGCharacterBuilderWebApp1.Server.Models;
+using RPGCharacterBuilderWebApp1.Server.Services.Armors;
+using RPGCharacterBuilderWebApp1.Server.Services.Characters;
 using System.Linq;
 
 namespace RPGCharacterBuilderWebApp1.Server
@@ -43,6 +45,10 @@ namespace RPGCharacterBuilderWebApp1.Server
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddScoped<ICharacterService, CharacterService>();
+            services.AddScoped<IArmorService, ArmorService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

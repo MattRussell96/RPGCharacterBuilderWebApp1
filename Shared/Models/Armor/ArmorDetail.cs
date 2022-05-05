@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace RPGCharacterBuilderWebApp1.Shared.Models.Armor
 {
-    internal class ArmorDetail
+    public class ArmorDetail
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

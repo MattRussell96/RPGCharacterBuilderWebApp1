@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace RPGCharacterBuilderWebApp1.Server.Services.Character
+namespace RPGCharacterBuilderWebApp1.Server.Services.Characters
 {
     public interface ICharacterService
     {
@@ -11,7 +11,7 @@ namespace RPGCharacterBuilderWebApp1.Server.Services.Character
         Task<CharacterDetail> GetCharacterByIdAsync(int characterId);
         Task<bool> UpdateCharacterAsync(CharacterEdit model);
         Task<bool> DeleteCharacterAsync(int characterId);
-        Task<bool> DeleteCharacterAsync(string userId);
+       //Task<bool> DeleteCharacterAsync(string userId);
         void SetUserId(string userId);
     }
 }
