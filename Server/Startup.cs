@@ -30,7 +30,7 @@ namespace RPGCharacterBuilderWebApp1.Server
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("CBLocal")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 

@@ -1,12 +1,27 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace RPGCharacterBuilderWebApp1.Server.Data.Migrations
+#nullable disable
+
+namespace RPGCharacterBuilderWebApp1.Server.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class initialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Armors",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Armors", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -66,6 +81,24 @@ namespace RPGCharacterBuilderWebApp1.Server.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Keys",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Version = table.Column<int>(type: "int", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Use = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Algorithm = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    IsX509Certificate = table.Column<bool>(type: "bit", nullable: false),
+                    DataProtected = table.Column<bool>(type: "bit", nullable: false),
+                    Data = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Keys", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PersistedGrants",
                 columns: table => new
                 {
@@ -83,6 +116,34 @@ namespace RPGCharacterBuilderWebApp1.Server.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PersistedGrants", x => x.Key);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Characters",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OwnerId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Health = table.Column<int>(type: "int", nullable: false),
+                    Strength = table.Column<int>(type: "int", nullable: false),
+                    Stamina = table.Column<int>(type: "int", nullable: false),
+                    Speed = table.Column<int>(type: "int", nullable: false),
+                    Mana = table.Column<int>(type: "int", nullable: false),
+                    ArmorId = table.Column<int>(type: "int", nullable: false),
+                    CreatedUtc = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    ModifiedUtc = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Characters", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Characters_Armors_ArmorId",
+                        column: x => x.ArmorId,
+                        principalTable: "Armors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -231,6 +292,11 @@ namespace RPGCharacterBuilderWebApp1.Server.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Characters_ArmorId",
+                table: "Characters",
+                column: "ArmorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DeviceCodes_DeviceCode",
                 table: "DeviceCodes",
                 column: "DeviceCode",
@@ -240,6 +306,16 @@ namespace RPGCharacterBuilderWebApp1.Server.Data.Migrations
                 name: "IX_DeviceCodes_Expiration",
                 table: "DeviceCodes",
                 column: "Expiration");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Keys_Use",
+                table: "Keys",
+                column: "Use");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PersistedGrants_ConsumedTime",
+                table: "PersistedGrants",
+                column: "ConsumedTime");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PersistedGrants_Expiration",
@@ -275,7 +351,13 @@ namespace RPGCharacterBuilderWebApp1.Server.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Characters");
+
+            migrationBuilder.DropTable(
                 name: "DeviceCodes");
+
+            migrationBuilder.DropTable(
+                name: "Keys");
 
             migrationBuilder.DropTable(
                 name: "PersistedGrants");
@@ -285,6 +367,9 @@ namespace RPGCharacterBuilderWebApp1.Server.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Armors");
         }
     }
 }

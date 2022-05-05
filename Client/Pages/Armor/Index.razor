@@ -1,10 +1,8 @@
-﻿@page "/Armor/Index"
+﻿@page "/Armor"
 @using Microsoft.AspNetCore.Authorization
 @using RPGCharacterBuilderWebApp1.Shared.Models.Armor
 @inject HttpClient http
 @attribute [Authorize]
-
-<h3>Index</h3>
 
 <h3>Armor</h3>
 <a href="/armor/create">Create Armor</a>
@@ -15,9 +13,6 @@
 }
 else
 {
-    
-}
-
 <table class="table">
     <thead>
         <tr>
@@ -35,6 +30,8 @@ else
         }
     </tbody>
 </table>
+}
+
 
 @code {
     private List<ArmorListItem> armors;

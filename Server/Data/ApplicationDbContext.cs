@@ -1,4 +1,4 @@
-﻿using IdentityServer4.EntityFramework.Options;
+﻿using Duende.IdentityServer.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -20,5 +20,7 @@ namespace RPGCharacterBuilderWebApp1.Server.Data
 
         public DbSet<Character> Characters { get; set; }
         public DbSet<Armor> Armors { get; set; }
+        public DbSet<Weapon> Weapons { get; set; }
+        public DbSet<MagicItem> MagicItems { get; set; }
     }
 }

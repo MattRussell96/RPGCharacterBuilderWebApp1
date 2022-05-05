@@ -23,7 +23,11 @@ namespace RPGCharacterBuilderWebApp1.Server.Services.Armors
 
             var armorEntity = new Armor
             {
+                Id = model.Id,
                 Name = model.Name,
+                Type = model.Type,
+                DamageNegation = model.DamageNegation,
+                Weight = model.Weight,
             };
 
             _context.Armors.Add(armorEntity);

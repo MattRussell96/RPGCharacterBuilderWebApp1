@@ -31,6 +31,22 @@ else
             <label>Health</label>
             <InputNumber class="form-control" @bind-Value="model.Health" />
         </div>
+          <div class="form-group">
+            <label>Strength</label>
+            <InputNumber class="form-control" @bind-Value="model.Strength" />
+        </div>
+          <div class="form-group">
+            <label>Stamina</label>
+            <InputNumber class="form-control" @bind-Value="model.Stamina" />
+        </div>
+          <div class="form-group">
+            <label>Speed</label>
+            <InputNumber class="form-control" @bind-Value="model.Speed" />
+        </div>
+          <div class="form-group">
+            <label>Mana</label>
+            <InputNumber class="form-control" @bind-Value="model.Mana" />
+        </div>
         <InputSelect class="form-control" @bind-Value="@model.ArmorId">
             @foreach (var armor in armors)
             {

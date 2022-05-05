@@ -10,6 +10,15 @@ namespace RPGCharacterBuilderWebApp1.Shared.Models.Armor
     public class ArmorEdit
     {
         [Required]
+        public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
+        public string Type { get; set; }
+        [Required]
+        public int DamageNegation { get; set; }
+        [Required]
+        public int Weight { get; set; }
+
     }
 }
