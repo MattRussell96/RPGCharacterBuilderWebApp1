@@ -1,4 +1,4 @@
-﻿@page "/Character/Create"
+﻿@page "/Character/Edit/{CharacterId:int}"
 @using Microsoft.AspNetCore.Authorization
 @using RPGCharacterBuilderWebApp1.Shared.Models.Character
 @attribute [Authorize]
@@ -6,33 +6,33 @@
 @using RPGCharacterBuilderWebApp1.Shared.Models.Armor
 @inject NavigationManager navigation
 
-<h3>Create A Character</h3>
+<h3>Edit Character: @Model.Name</h3>
 
 @if (errorMessage != null)
 {
     <h5 class="text-danger">@errorMessage</h5>
 }
 
-@if (armors == null)
+@if (Armors == null)
 {
     <pm><em>Loading...</em></pm>
 }
 else
 {
 <div class="container">
-    <EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+    <EditForm Model="@Model" OnValidSubmit="@HandleSubmit">
         <DataAnnotationsValidator />
         <ValidationSummary />
         <div class="form-group">
             <label>Name</label>
-            <InputText class="form-control" @bind-Value="model.Name" />
+            <InputText class="form-control" @bind-Value="Model.Name" />
         </div>
         <div class="form-group">
             <label>Health</label>
-            <InputNumber class="form-control" @bind-Value="model.Health" />
+            <InputNumber class="form-control" @bind-Value="Model.Health" />
         </div>
-        <InputSelect class="form-control" @bind-Value="@model.ArmorId">
-            @foreach (var armor in armors)
+        <InputSelect class="form-control" @bind-Value="@Model.ArmorId">
+            @foreach (var armor in Armors)
             {
                 <option value="@armor.Id">@armor.Name</option>
             }
@@ -43,21 +43,24 @@ else
 }
     
 @code {
-    private CharacterCreate model = new();
-    private IEnumerable<ArmorListItem> armors;
-    private string errorMessage;
+    [Parameter]
+    public int CharacterId { get; set; }
+    private CharacterEdit Model { get; set; }
+    private IEnumerable<ArmorListItem> Armors { get; set; }
+    private string errorMessage { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        armors = await http.GetFromJsonAsync<IEnumerable<ArmorListItem>>("/api/armor/");
+        Model = await http.GetFromJsonAsync<CharacterEdit>($"/api/armor/{CharacterId}");
+        Armors = await http.GetFromJsonAsync<IEnumerable<ArmorListItem>>($"/api/armor/");
     }
 
     private async void HandleSubmit()
     {
-        var createRes = await http.PostAsJsonAsync<CharacterCreate>("/api/character", model);
+        var createRes = await http.PostAsJsonAsync<CharacterEdit>($"/api/character/edit/{CharacterId}", Model);
         if (createRes.IsSuccessStatusCode)
         {
-            navigation.NavigateTo("/character");
+            navigation.NavigateTo($"/character/{CharacterId}");
         }
         else
         {
@@ -65,4 +68,3 @@ else
         }
     }
 }
-
