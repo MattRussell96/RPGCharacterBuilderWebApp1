@@ -49,7 +49,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        armors = await http.GetFromJsonAsync<IEnumerable<ArmorListItem>>("/api/armor/")
+        armors = await http.GetFromJsonAsync<IEnumerable<ArmorListItem>>("/api/armor/");
     }
 
     private async void HandleSubmit()
@@ -61,7 +61,7 @@ else
         }
         else
         {
-            errorMessage = "Could not create a character right now. Please try again later."
+            errorMessage = "Could not create a character right now. Please try again later.";
         }
     }
 }
