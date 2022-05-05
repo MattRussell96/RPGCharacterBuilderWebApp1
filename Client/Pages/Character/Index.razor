@@ -1,0 +1,46 @@
+﻿@page "/Character"
+@using Microsoft.AspNetCore.Authorization
+@using RPGCharacterBuilderWebApp1.Shared.Models.Character
+@attribute [Authorize]
+@inject HttpClient http
+
+<h3>Character</h3>
+<a href="/character/create">Create A Character</a>
+
+@if (_characters == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var character in _characters)
+            {
+                <tr>
+                    <td><strong>@character.Name</strong></td>
+                    <td>
+                        <a href=@($"character/{character.Id}")>Details</a>
+                        <a href=@($"character/edit/{character.Id}")>Edit</a>
+                        <a href=@($"character/delete/{character.Id}")>Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<CharacterListItem> _characters;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _characters = await http.GetFromJsonAsync<List<CharacterListItem>>("/api/character");
+    }
+}

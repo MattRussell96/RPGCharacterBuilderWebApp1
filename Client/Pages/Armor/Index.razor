@@ -1,5 +1,46 @@
-﻿<h3>Index</h3>
+﻿@page "/Armor/Index"
+@using Microsoft.AspNetCore.Authorization
+@using RPGCharacterBuilderWebApp1.Shared.Models.Armor
+@inject HttpClient http
+@attribute [Authorize]
+
+<h3>Index</h3>
+
+<h3>Armor</h3>
+<a href="/armor/create">Create Armor</a>
+
+@if (armors == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ArmorListItem armor in armors)
+        {
+            <tr>
+                <td>@armor.Id</td>
+                <td>@armor.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 @code {
+    private List<ArmorListItem> armors;
 
+    protected override async Task OnInitializedAsync()
+    {
+        armors = await http.GetFromJsonAsync<List<ArmorListItem>>("Armor");
+    }
 }
