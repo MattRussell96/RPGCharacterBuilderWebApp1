@@ -8,5 +8,7 @@ namespace RPGCharacterBuilderWebApp1.Shared.Models.Weapon
 {
     public class WeaponListItem
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -8,11 +8,11 @@ namespace RPGCharacterBuilderWebApp1.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ArmorController : ControllerBase
+    public class ArmorsController : ControllerBase
     {
         private readonly IArmorService _armorService;
 
-        public ArmorController(IArmorService armorService)
+        public ArmorsController(IArmorService armorService)
         {
             _armorService = armorService;
         }

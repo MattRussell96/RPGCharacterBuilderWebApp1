@@ -23,11 +23,13 @@ namespace RPGCharacterBuilderWebApp1.Server.Models
         public int Mana { get; set; }
         public int ArmorId { get; set; }
         public virtual Armor Armor { get; set; }
+        public int WeaponId { get; set; }
+        public virtual Weapon Weapon { get; set; }
+        public int MagicItemId { get; set; }
+        public virtual MagicItem MagicItem{ get; set; }
         [Required]
         public DateTimeOffset CreatedUtc { get; set; }
         public DateTimeOffset? ModifiedUtc { get; set; }
 
-        //public virtual MagicItem MagicItems { get; set; }
-        //public virtual Weapon Weapons { get; set; }
     }
 }

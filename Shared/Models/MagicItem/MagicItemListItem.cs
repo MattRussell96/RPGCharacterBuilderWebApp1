@@ -8,5 +8,7 @@ namespace RPGCharacterBuilderWebApp1.Shared.Models.MagicItem
 {
     public class MagicItemListItem
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

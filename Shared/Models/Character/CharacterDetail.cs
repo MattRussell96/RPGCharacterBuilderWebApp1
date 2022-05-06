@@ -17,6 +17,10 @@ namespace RPGCharacterBuilderWebApp1.Shared.Models.Character
         public int Mana { get; set; }
         public int ArmorId { get; set; }
         public string ArmorName { get; set; }
+        public int WeaponId { get; set; }
+        public string WeaponName { get; set; }
+        public int MagicItem { get; set; }
+        public string MagicItemName { get; set; }
         public DateTimeOffset CreatedUtc { get; set; }
         public DateTimeOffset? ModifiedUtc { get; set; }
     }

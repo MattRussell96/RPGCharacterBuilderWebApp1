@@ -24,5 +24,7 @@ namespace RPGCharacterBuilderWebApp1.Shared.Models.Character
         [Required]
         public int Mana { get; set; }
         public int ArmorId { get; set; }
+        public int WeaponId { get; set; }
+        public int MagicItemId { get; set; }
     }
 }
