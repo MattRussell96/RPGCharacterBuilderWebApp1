@@ -1,11 +1,11 @@
-﻿@page "/MagicItem"
+﻿@page "/MagicItems"
 @using Microsoft.AspNetCore.Authorization
 @using RPGCharacterBuilderWebApp1.Shared.Models.MagicItem
 @inject HttpClient http
 @attribute [Authorize]
 
 <h3>Magic Item</h3>
-<a href="/magicitem/create">Create Magic Item</a>
+<a href="/magicitems/create">Create Magic Item</a>
 
 @if (magicItems == null)
 {
@@ -38,6 +38,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        magicItems = await http.GetFromJsonAsync<List<MagicItemListItem>>("MagicItem");
+        magicItems = await http.GetFromJsonAsync<List<MagicItemListItem>>("/api/MagicItems");
     }
 }

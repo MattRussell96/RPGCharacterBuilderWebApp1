@@ -1,4 +1,4 @@
-﻿@page "/Weapon/Create"
+﻿@page "/Weapons/Create"
 @attribute [Authorize]
 @inject HttpClient http
 @using Microsoft.AspNetCore.Authorization
@@ -46,11 +46,11 @@
 
     private async void HandleSubmit()
     {
-        var createRes = await http.PostAsJsonAsync<WeaponCreate>("/api/weapon", model);
+        var createRes = await http.PostAsJsonAsync<WeaponCreate>("/api/weapons", model);
 
         if (createRes.IsSuccessStatusCode)
         {
-            navigation.NavigateTo("/weapon");
+            navigation.NavigateTo("/weapons");
         }
         else
         {

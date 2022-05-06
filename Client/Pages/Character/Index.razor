@@ -1,11 +1,11 @@
-﻿@page "/Character"
+﻿@page "/Characters"
 @using Microsoft.AspNetCore.Authorization
 @using RPGCharacterBuilderWebApp1.Shared.Models.Character
 @attribute [Authorize]
 @inject HttpClient http
 
 <h3>Character</h3>
-<a href="/character/create">Create A Character</a>
+<a href="/characters/create">Create A Character</a>
 
 @if (_characters == null)
 {
@@ -26,9 +26,9 @@ else
                 <tr>
                     <td><strong>@character.Name</strong></td>
                     <td>
-                        <a href=@($"character/{character.Id}")>Details</a>
-                        <a href=@($"character/edit/{character.Id}")>Edit</a>
-                        <a href=@($"character/delete/{character.Id}")>Delete</a>
+                        <a href=@($"/api/characters/{character.Id}")>Details</a>
+                        <a href=@($"/api/characters/edit/{character.Id}")>Edit</a>
+                        <a href=@($"/api/characters/delete/{character.Id}")>Delete</a>
                     </td>
                 </tr>
             }
@@ -41,6 +41,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        _characters = await http.GetFromJsonAsync<List<CharacterListItem>>("/api/character");
+        _characters = await http.GetFromJsonAsync<List<CharacterListItem>>("/api/characters");
     }
 }

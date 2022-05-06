@@ -1,11 +1,11 @@
-﻿@page "/Weapon"
+﻿@page "/Weapons"
 @using Microsoft.AspNetCore.Authorization
 @using RPGCharacterBuilderWebApp1.Shared.Models.Weapon
 @inject HttpClient http
 @attribute [Authorize]
 
 <h3>Weapon</h3>
-<a href="/weapon/create">Create Armor</a>
+<a href="/weapons/create">Create Weapon</a>
 
 @if (weapons == null)
 {
@@ -38,6 +38,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        weapons = await http.GetFromJsonAsync<List<WeaponListItem>>("Weapon");
+        weapons = await http.GetFromJsonAsync<List<WeaponListItem>>("/api/Weapons");
     }
 }

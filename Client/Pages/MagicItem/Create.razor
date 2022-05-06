@@ -1,4 +1,4 @@
-﻿@page "/MagicItem/Create"
+﻿@page "/MagicItems/Create"
 @attribute [Authorize]
 @inject HttpClient http
 @using Microsoft.AspNetCore.Authorization
@@ -25,7 +25,7 @@
             <InputText class="form-control" @bind-Value="model.Type" />
         </div>
         <div class="form-group">
-            <label>Damage Dealt</label>
+            <label>Magic Damage Dealt</label>
             <InputNumber class="form-control" @bind-Value="model.MagicDamageIncreasedBy" />
         </div>
         <div class="form-group">
@@ -42,11 +42,11 @@
 
     private async void HandleSubmit()
     {
-        var createRes = await http.PostAsJsonAsync<MagicItemCreate>("/api/magicitem", model);
+        var createRes = await http.PostAsJsonAsync<MagicItemCreate>("/api/magicitems", model);
 
         if (createRes.IsSuccessStatusCode)
         {
-            navigation.NavigateTo("/magicitem");
+            navigation.NavigateTo("/magicitems");
         }
         else
         {

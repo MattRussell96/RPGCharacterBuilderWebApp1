@@ -2,7 +2,7 @@
 @using RPGCharacterBuilderWebApp1.Shared.Models.Character
 @attribute [Authorize]
 @inject HttpClient http
-@page "/character/{CharacterId:int}"
+@page "/characters/{CharacterId:int}"
 
 <h3>Character #@CharacterId</h3>
 
@@ -32,10 +32,10 @@
         </div>
         <div class="d-flex justify-content-center mt-3">
             <div class="text-center justify-content-between w-25">
-                <a href=@($"/character/edit/{Character.Id}") class="btn btn-outline-primary">Edit</a>
-                <a href=@($"/character/delete/{Character.Id}") class="btn btn-outline-danger">Delete</a>
+                <a href=@($"/characters/edit/{Character.Id}") class="btn btn-outline-primary">Edit</a>
+                <a href=@($"/characters/delete/{Character.Id}") class="btn btn-outline-danger">Delete</a>
                 <hr />
-                <a href="/character">Back To Character Index</a>
+                <a href="/characters">Back To Character Index</a>
             </div>
         </div>
     </div>
@@ -52,6 +52,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        Character = await http.GetFromJsonAsync<CharacterDetail>($"/api/character/{CharacterId}");
+        Character = await http.GetFromJsonAsync<CharacterDetail>($"/api/characters/{CharacterId}");
     }
 }

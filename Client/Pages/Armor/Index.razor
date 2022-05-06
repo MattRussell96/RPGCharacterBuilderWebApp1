@@ -38,6 +38,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        armors = await http.GetFromJsonAsync<List<ArmorListItem>>("Armor");
+        armors = await http.GetFromJsonAsync<List<ArmorListItem>>("/api/Armor");
     }
 }

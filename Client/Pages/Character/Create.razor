@@ -1,9 +1,11 @@
-﻿@page "/Character/Create"
+﻿@page "/Characters/Create"
 @using Microsoft.AspNetCore.Authorization
 @using RPGCharacterBuilderWebApp1.Shared.Models.Character
 @attribute [Authorize]
 @inject HttpClient http
 @using RPGCharacterBuilderWebApp1.Shared.Models.Armor
+@using RPGCharacterBuilderWebApp1.Shared.Models.MagicItem
+@using RPGCharacterBuilderWebApp1.Shared.Models.Weapon
 @inject NavigationManager navigation
 
 <h3>Create A Character</h3>
@@ -13,10 +15,11 @@
     <h5 class="text-danger">@errorMessage</h5>
 }
 
-@if (armors == null)
+@if (armors == null && weapons == null && magicItems == null)
 {
     <pm><em>Loading...</em></pm>
 }
+
 else
 {
 <div class="container">
@@ -47,12 +50,42 @@ else
             <label>Mana</label>
             <InputNumber class="form-control" @bind-Value="model.Mana" />
         </div>
+        <div>
+            <label>Head Armor</label>
         <InputSelect class="form-control" @bind-Value="@model.ArmorId">
             @foreach (var armor in armors)
             {
-                <option value="@armor.Id">@armor.Name</option>
+                <option value="@armor.Id">@armor.Name : @armor.Type</option>
             }
         </InputSelect>
+        </div>
+        <div>
+            <label>Chest Armor</label>
+        <InputSelect class="form-control" @bind-Value="@model.ArmorId">
+            @foreach (var armor in armors)
+            {
+                <option value="@armor.Id">@armor.Name : @armor.Type</option>
+            }
+        </InputSelect>
+        </div>
+        <div>
+            <label>Arms Armor</label>
+        <InputSelect class="form-control" @bind-Value="@model.ArmorId">
+            @foreach (var armor in armors)
+            {
+                <option value="@armor.Id">@armor.Name : @armor.Type</option>
+            }
+        </InputSelect>
+        </div>
+        <div>
+            <label>Magic Item</label>
+        <InputSelect class="form-control" @bind-Value="@model.MagicItemId">
+            @foreach (var magicItem in magicItems)
+            {
+                <option value="@magicItem.Id">@magicItem.Name : @magicItem.Type</option>
+            }
+        </InputSelect>
+        </div>
         <button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
     </EditForm>
 </div>
@@ -61,19 +94,23 @@ else
 @code {
     private CharacterCreate model = new();
     private IEnumerable<ArmorListItem> armors;
+    private IEnumerable<WeaponListItem> weapons;
+    private IEnumerable<MagicItemListItem> magicItems;
     private string errorMessage;
 
     protected override async Task OnInitializedAsync()
     {
         armors = await http.GetFromJsonAsync<IEnumerable<ArmorListItem>>("/api/armor/");
+        weapons = await http.GetFromJsonAsync<IEnumerable<WeaponListItem>>("/api/weapons");
+        magicItems = await http.GetFromJsonAsync<IEnumerable<MagicItemListItem>>("/api/magicitems");
     }
 
     private async void HandleSubmit()
     {
-        var createRes = await http.PostAsJsonAsync<CharacterCreate>("/api/character", model);
+        var createRes = await http.PostAsJsonAsync<CharacterCreate>("/api/characters", model);
         if (createRes.IsSuccessStatusCode)
         {
-            navigation.NavigateTo("/character");
+            navigation.NavigateTo("/characters");
         }
         else
         {

@@ -1,4 +1,4 @@
-﻿@page "/Character/Delete/{CharacterId:int}"
+﻿@page "/Characters/Delete/{CharacterId:int}"
 @using Microsoft.AspNetCore.Authorization
 @using RPGCharacterBuilderWebApp1.Shared.Models.Character
 @attribute [Authorize]
@@ -34,7 +34,7 @@
         </div>
         <div class="d-flex justify-content-center mt-3">
             <div class="text-center justify-content-between w-50">
-                <a href=@($"/character/edit/{CharacterId}") class="btn btn-outline-primary">Back To Index</a>
+                <a href=@($"/characters/edit/{CharacterId}") class="btn btn-outline-primary">Back To Index</a>
                 <a href="#" @onclick="HandleClick" class="btn btn-danger text-white">Delete Character</a>
                 <hr />
                 <a href="/character">Back To Character Index</a>
@@ -51,16 +51,16 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Character = await http.GetFromJsonAsync<CharacterDetail>($"/api/character/{CharacterId}");
+        Character = await http.GetFromJsonAsync<CharacterDetail>($"/api/characters/{CharacterId}");
     }
 
     private async void HandleClick()
     {
-        var deleteRes = await http.DeleteAsync($"/api/character/{CharacterId}");
+        var deleteRes = await http.DeleteAsync($"/api/characters/{CharacterId}");
 
         if (deleteRes.IsSuccessStatusCode)
         {
-            navigation.NavigateTo("/character");
+            navigation.NavigateTo("/characters");
         }
         else
         {
