@@ -50,6 +50,7 @@ namespace RPGCharacterBuilderWebApp1.Server.Services.Weapons
                 {
                     Id = entity.Id,
                     Name = entity.Name,
+                    Type = entity.Type,
                 });
 
             return await weaponQuery.ToListAsync();

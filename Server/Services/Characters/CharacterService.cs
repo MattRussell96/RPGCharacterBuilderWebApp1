@@ -31,6 +31,8 @@ namespace RPGCharacterBuilderWebApp1.Server.Services.Characters
                     Id = n.Id,
                     Name = n.Name,
                     ArmorName = n.Armor.Name,
+                    WeaponName = n.Weapon.Name,
+                    MagicItemName = n.MagicItem.Name,
                     CreatedUtc = n.CreatedUtc,
 
                 });
@@ -52,6 +54,8 @@ namespace RPGCharacterBuilderWebApp1.Server.Services.Characters
                 OwnerId = _userId,
                 CreatedUtc = DateTimeOffset.Now,
                 ArmorId = model.ArmorId,
+                WeaponId = model.WeaponId,
+                MagicItemId = model.MagicItemId,
             };
 
             _context.Characters.Add(characterEntity);
@@ -82,6 +86,10 @@ namespace RPGCharacterBuilderWebApp1.Server.Services.Characters
                 ModifiedUtc = characterEntity.ModifiedUtc,
                 ArmorName = characterEntity.Armor.Name,
                 ArmorId = characterEntity.Armor.Id,
+                WeaponName = characterEntity.Weapon.Name,
+                WeaponId = characterEntity.Weapon.Id,
+                MagicItemName = characterEntity.MagicItem.Name,
+                MagicItemId = characterEntity.MagicItem.Id,
             };
 
             return detail;
@@ -105,6 +113,8 @@ namespace RPGCharacterBuilderWebApp1.Server.Services.Characters
             entity.Speed = model.Speed;
             entity.Mana = model.Mana;
             entity.ArmorId = model.ArmorId;
+            entity.WeaponId = model.WeaponId;
+            entity.MagicItemId = model.MagicItemId;
             entity.ModifiedUtc = DateTimeOffset.Now;
 
             return await _context.SaveChangesAsync() == 1;

@@ -34,12 +34,9 @@ namespace RPGCharacterBuilderWebApp1.Server.Services.Armors
             return await _context.SaveChangesAsync() == 1;
         }
 
-        public async Task<bool> DeleteArmorAsync(int armorId)
+        public Task<bool> DeleteArmorAsync(int armorId)
         {
-            var armorEntity = new Armor { Id = armorId };
-            _context.Remove(armorEntity);
-            await _context.SaveChangesAsync();
-            return await _context.SaveChangesAsync() == 1;
+            throw new System.NotImplementedException();
         }
 
         public async Task<IEnumerable<ArmorListItem>> GetAllArmorAsync()
@@ -52,6 +49,7 @@ namespace RPGCharacterBuilderWebApp1.Server.Services.Armors
                 {
                     Id = entity.Id,
                     Name = entity.Name,
+                    Type = entity.Type,
                 });
 
             return await armorQuery.ToListAsync();

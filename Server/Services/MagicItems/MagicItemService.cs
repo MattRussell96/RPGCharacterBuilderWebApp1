@@ -49,6 +49,7 @@ namespace RPGCharacterBuilderWebApp1.Server.Services.MagicItems
                 {
                     Id = entity.Id,
                     Name = entity.Name,
+                    Type = entity.Type,
                 });
 
             return await magicItemQuery.ToListAsync();

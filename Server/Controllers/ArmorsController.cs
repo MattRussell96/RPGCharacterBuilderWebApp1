@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RPGCharacterBuilderWebApp1.Server.Services.Armors;
 using RPGCharacterBuilderWebApp1.Shared.Models.Armor;
 using System.Threading.Tasks;
@@ -8,11 +7,11 @@ namespace RPGCharacterBuilderWebApp1.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ArmorsController : ControllerBase
+    public class ArmorController : ControllerBase
     {
         private readonly IArmorService _armorService;
 
-        public ArmorsController(IArmorService armorService)
+        public ArmorController(IArmorService armorService)
         {
             _armorService = armorService;
         }

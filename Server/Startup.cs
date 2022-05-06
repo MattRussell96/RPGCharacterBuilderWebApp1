@@ -11,6 +11,8 @@ using RPGCharacterBuilderWebApp1.Server.Data;
 using RPGCharacterBuilderWebApp1.Server.Models;
 using RPGCharacterBuilderWebApp1.Server.Services.Armors;
 using RPGCharacterBuilderWebApp1.Server.Services.Characters;
+using RPGCharacterBuilderWebApp1.Server.Services.MagicItems;
+using RPGCharacterBuilderWebApp1.Server.Services.Weapons;
 using System.Linq;
 
 namespace RPGCharacterBuilderWebApp1.Server
@@ -48,6 +50,8 @@ namespace RPGCharacterBuilderWebApp1.Server
 
             services.AddScoped<ICharacterService, CharacterService>();
             services.AddScoped<IArmorService, ArmorService>();
+            services.AddScoped<IWeaponService, WeaponService>();
+            services.AddScoped<IMagicItemService, MagicItemService>();
 
         }
 
