@@ -1,5 +1,56 @@
-﻿<h3>Create</h3>
+﻿@page "/MagicItem/Create"
+@attribute [Authorize]
+@inject HttpClient http
+@using Microsoft.AspNetCore.Authorization
+@using RPGCharacterBuilderWebApp1.Shared.Models.MagicItem
+@inject NavigationManager navigation
+
+<h3>Create</h3>
+
+@if (errorMessage != null)
+{
+    <h5 class="text-danger">@errorMessage</h5>
+}
+
+<div class="container">
+    <EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <label>Name</label>
+            <InputText class="form-control" @bind-Value="model.Name" />
+        </div>
+        <div class="form-group">
+            <label>Type</label>
+            <InputText class="form-control" @bind-Value="model.Type" />
+        </div>
+        <div class="form-group">
+            <label>Damage Dealt</label>
+            <InputNumber class="form-control" @bind-Value="model.MagicDamageIncreasedBy" />
+        </div>
+        <div class="form-group">
+            <label>Weight</label>
+            <InputNumber class="form-control" @bind-Value="model.Weight" />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
+    </EditForm>
+</div>
 
 @code {
+    private MagicItemCreate model = new();
+    private string errorMessage;
 
+    private async void HandleSubmit()
+    {
+        var createRes = await http.PostAsJsonAsync<MagicItemCreate>("/api/magicitem", model);
+
+        if (createRes.IsSuccessStatusCode)
+        {
+            navigation.NavigateTo("/magicitem");
+        }
+        else
+        {
+            errorMessage = "Could not create your magic item right now. Please try again later.";
+        }
+    }
 }

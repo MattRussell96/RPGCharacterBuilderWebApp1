@@ -1,5 +1,60 @@
-﻿<h3>Create</h3>
+﻿@page "/Weapon/Create"
+@attribute [Authorize]
+@inject HttpClient http
+@using Microsoft.AspNetCore.Authorization
+@using RPGCharacterBuilderWebApp1.Shared.Models.Weapon
+@inject NavigationManager navigation
+
+<h3>Create</h3>
+
+@if (errorMessage != null)
+{
+    <h5 class="text-danger">@errorMessage</h5>
+}
+
+<div class="container">
+    <EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <label>Name</label>
+            <InputText class="form-control" @bind-Value="model.Name" />
+        </div>
+        <div class="form-group">
+            <label>Type</label>
+            <InputText class="form-control" @bind-Value="model.Type" />
+        </div>
+        <div class="form-group">
+            <label>Damage Dealt</label>
+            <InputNumber class="form-control" @bind-Value="model.DamageIncreasedBy" />
+        </div>
+        <div class="form-group">
+            <label>Magic Damage Dealt</label>
+            <InputNumber class="form-control" @bind-Value="model.MagicDamage" />
+        </div>
+        <div class="form-group">
+            <label>Weight</label>
+            <InputNumber class="form-control" @bind-Value="model.Weight" />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
+    </EditForm>
+</div>
 
 @code {
+    private WeaponCreate model = new();
+    private string errorMessage;
 
+    private async void HandleSubmit()
+    {
+        var createRes = await http.PostAsJsonAsync<WeaponCreate>("/api/weapon", model);
+
+        if (createRes.IsSuccessStatusCode)
+        {
+            navigation.NavigateTo("/weapon");
+        }
+        else
+        {
+            errorMessage = "Could not create your weapon right now. Please try again later.";
+        }
+    }
 }

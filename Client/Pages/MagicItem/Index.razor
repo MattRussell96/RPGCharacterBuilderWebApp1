@@ -1,5 +1,43 @@
-﻿<h3>Index</h3>
+﻿@page "/MagicItem"
+@using Microsoft.AspNetCore.Authorization
+@using RPGCharacterBuilderWebApp1.Shared.Models.MagicItem
+@inject HttpClient http
+@attribute [Authorize]
+
+<h3>Magic Item</h3>
+<a href="/magicitem/create">Create Magic Item</a>
+
+@if (magicItems == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (MagicItemListItem magicItem in magicItems)
+        {
+            <tr>
+                <td>@magicItem.Id</td>
+                <td>@magicItem.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
+
 
 @code {
+    private List<MagicItemListItem> magicItems;
 
+    protected override async Task OnInitializedAsync()
+    {
+        magicItems = await http.GetFromJsonAsync<List<MagicItemListItem>>("MagicItem");
+    }
 }
