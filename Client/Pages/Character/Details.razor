@@ -1,5 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Authorization
+@using RPGCharacterBuilderWebApp1.Shared.Models.Armor
 @using RPGCharacterBuilderWebApp1.Shared.Models.Character
+@using RPGCharacterBuilderWebApp1.Shared.Models.MagicItem
+@using RPGCharacterBuilderWebApp1.Shared.Models.Weapon
 @attribute [Authorize]
 @inject HttpClient http
 @page "/characters/{CharacterId:int}"
@@ -13,6 +16,8 @@
             <div class="card-header d-flex justify-content-between">
                 <span>Character #@Character.Id</span>
                 <span class="text-muted"><strong>@Character.ArmorName</strong></span>
+                <span class="text-muted"><strong>@Character.WeaponName</strong></span>
+                <span class="text-muted"><strong>@Character.MagicItemName</strong></span>
             </div>
             <div class="card-body">
                 <h4 class="card-title">@Character.Name</h4>
@@ -49,9 +54,15 @@ else
     [Parameter]
     public int CharacterId { get; set; }
     public CharacterDetail Character { get; set; }
+    public ArmorDetail armors { get; set; }
+    public WeaponDetail weapons { get; set; }
+    public MagicItemDetail magicItems { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         Character = await http.GetFromJsonAsync<CharacterDetail>($"/api/characters/{CharacterId}");
+        armors = await http.GetFromJsonAsync<ArmorDetail>("/api/armor/");
+        weapons = await http.GetFromJsonAsync<WeaponDetail>("/api/weapons");
+        magicItems = await http.GetFromJsonAsync<MagicItemDetail>("/api/magicitems");
     }
 }

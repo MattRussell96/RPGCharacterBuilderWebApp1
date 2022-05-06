@@ -26,7 +26,7 @@ else
                 <tr>
                     <td><strong>@character.Name</strong></td>
                     <td>
-                        <a href=@($"/api/characters/{character.Id}")>Details</a>
+                        <a href=@($"characters/{character.Id}")>Details</a>
                         <a href=@($"/api/characters/edit/{character.Id}")>Edit</a>
                         <a href=@($"/api/characters/delete/{character.Id}")>Delete</a>
                     </td>
