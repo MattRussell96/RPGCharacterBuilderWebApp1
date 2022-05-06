@@ -51,7 +51,7 @@ else
             <InputNumber class="form-control" @bind-Value="model.Mana" />
         </div>
         <div>
-            <label>Head Armor</label>
+            <label>Armor</label>
         <InputSelect class="form-control" @bind-Value="@model.ArmorId">
             @foreach (var armor in armors)
             {
@@ -60,20 +60,11 @@ else
         </InputSelect>
         </div>
         <div>
-            <label>Chest Armor</label>
-        <InputSelect class="form-control" @bind-Value="@model.ArmorId">
-            @foreach (var armor in armors)
+            <label>Weapon</label>
+        <InputSelect class="form-control" @bind-Value="@model.WeaponId">
+            @foreach (var weapon in weapons)
             {
-                <option value="@armor.Id">@armor.Name : @armor.Type</option>
-            }
-        </InputSelect>
-        </div>
-        <div>
-            <label>Arms Armor</label>
-        <InputSelect class="form-control" @bind-Value="@model.ArmorId">
-            @foreach (var armor in armors)
-            {
-                <option value="@armor.Id">@armor.Name : @armor.Type</option>
+                <option value="@weapon.Id">@weapon.Name : @weapon.Type</option>
             }
         </InputSelect>
         </div>
