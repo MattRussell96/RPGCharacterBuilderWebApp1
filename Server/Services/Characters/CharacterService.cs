@@ -68,9 +68,11 @@ namespace RPGCharacterBuilderWebApp1.Server.Services.Characters
             var characterEntity = await _context
                 .Characters
                 .Include(nameof(Armor))
+                .Include (nameof(Weapon))
+                .Include (nameof(MagicItem))
                 .FirstOrDefaultAsync(n => n.Id == characterId && n.OwnerId == _userId);
-
-            if (characterEntity == null)
+            
+            if (characterEntity is null)
                 return null;
 
             var detail = new CharacterDetail
@@ -93,14 +95,13 @@ namespace RPGCharacterBuilderWebApp1.Server.Services.Characters
             };
 
             return detail;
+            
         }
 
         public async Task<bool> UpdateCharacterAsync(CharacterEdit model)
         {
-            if (model == null)
-            {
-                return false;
-            }
+            if (model == null) return false;
+            
 
             var entity = await _context.Characters.FindAsync(model.Id);
 
@@ -131,10 +132,6 @@ namespace RPGCharacterBuilderWebApp1.Server.Services.Characters
             return await _context.SaveChangesAsync() == 1;
         }
 
-        //public Task<bool> DeleteCharacterAsync(string userId)
-        //{
-        //    throw new System.NotImplementedException();
-        //}
         
         
         public void SetUserId(string userId) => _userId = userId;
