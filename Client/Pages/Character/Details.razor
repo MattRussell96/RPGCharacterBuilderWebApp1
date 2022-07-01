@@ -7,25 +7,51 @@
 @inject HttpClient http
 @page "/characters/{CharacterId:int}"
 
-<h3>Character #@CharacterId</h3>
+<h3 class="text-center">@Character.Name</h3>
 
 @if (Character != null)
 {
     <div class="container">
         <div class="card">
             <div class="card-header d-flex justify-content-between">
-                <span>Character #@Character.Id</span>
+                <span>Character's Equipped Items</span>
                 <span class="text-muted"><strong>@Character.ArmorName</strong></span>
                 <span class="text-muted"><strong>@Character.WeaponName</strong></span>
                 <span class="text-muted"><strong>@Character.MagicItemName</strong></span>
             </div>
-            <div class="card-body">
-                <h4 class="card-title">@Character.Name</h4>
-                <p class="card-text">@Character.Health</p>
-                <p class="card-text">@Character.Strength</p>
-                <p class="card-text">@Character.Stamina</p>
-                <p class="card-text">@Character.Speed</p>
-                <p class="card-text">@Character.Mana</p>
+            <div class="card-body d-flex justify-content-between">
+                <div class="card-body">
+                    <h4 class="card-title">Character Stats!</h4>
+                    <p class="card-text">Health : @Character.Health</p>
+                    <p class="card-text">Strength : @Character.Strength</p>
+                    <p class="card-text">Stamina : @Character.Stamina</p>
+                    <p class="card-text">Speed : @Character.Speed</p>
+                    <p class="card-text">Mana : @Character.Mana</p>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Armor Stats!</h4>
+                    <p class="card-text">+ : @Character.Health</p>
+                    <p class="card-text">Strength : @Character.Strength</p>
+                    <p class="card-text">Stamina : @Character.Stamina</p>
+                    <p class="card-text">Speed : @Character.Speed</p>
+                    <p class="card-text">Mana : @Character.Mana</p>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Weapon Stats!</h4>
+                    <p class="card-text">Health : @Character.Health</p>
+                    <p class="card-text">Strength : @Character.Strength</p>
+                    <p class="card-text">Stamina : @Character.Stamina</p>
+                    <p class="card-text">Speed : @Character.Speed</p>
+                    <p class="card-text">Mana : @Character.Mana</p>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Magic Item Stats!</h4>
+                    <p class="card-text">Health : @Character.Health</p>
+                    <p class="card-text">Strength : @Character.Strength</p>
+                    <p class="card-text">Stamina : @Character.Stamina</p>
+                    <p class="card-text">Speed : @Character.Speed</p>
+                    <p class="card-text">Mana : @Character.Mana</p>
+                </div>
             </div>
             <div class="card-footer text-muted d-flex justify-content-between">
                 <span class="text-left">Created: @Character.CreatedUtc</span>
@@ -53,16 +79,17 @@ else
 @code {
     [Parameter]
     public int CharacterId { get; set; }
+    //[Parameter]
+    //public int ArmorId { get; set; }
+
     public CharacterDetail Character { get; set; }
-    public ArmorDetail armors { get; set; }
-    public WeaponDetail weapons { get; set; }
-    public MagicItemDetail magicItems { get; set; }
+    public ArmorDetail Armor { get; set; }
+    public WeaponDetail Weapons { get; set; }
+    public MagicItemDetail MagicItems { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         Character = await http.GetFromJsonAsync<CharacterDetail>($"/api/characters/{CharacterId}");
-        armors = await http.GetFromJsonAsync<ArmorDetail>("/api/armor/");
-        weapons = await http.GetFromJsonAsync<WeaponDetail>("/api/weapons");
-        magicItems = await http.GetFromJsonAsync<MagicItemDetail>("/api/magicitems");
+        //Armor = await http.GetFromJsonAsync<ArmorDetail>($"/api/armor/{Character.ArmorId}");
     }
 }
